@@ -1,0 +1,1350 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Charm Corner POS</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#ffeaf4;
+overflow:hidden;
+}
+
+.container{
+display:grid;
+grid-template-columns:360px 1fr;
+height:100vh;
+}
+
+/* LEFT PANEL */
+
+.left{
+background:#111;
+color:white;
+padding:20px;
+overflow:auto;
+}
+
+.logo{
+text-align:center;
+margin-bottom:20px;
+}
+
+.logo img{
+width:120px;
+height:120px;
+border-radius:50%;
+border:4px solid hotpink;
+background:white;
+object-fit:cover;
+}
+
+.logo h1{
+margin-top:12px;
+color:#ff77b7;
+font-size:28px;
+}
+
+.logo p{
+color:#ddd;
+font-size:14px;
+}
+
+.search{
+margin:20px 0;
+}
+
+.search input{
+width:100%;
+padding:13px;
+border:none;
+border-radius:10px;
+font-size:15px;
+outline:none;
+}
+
+.category{
+
+margin-top:20px;
+
+color:#ff9ccf;
+
+font-weight:bold;
+
+font-size:18px;
+
+}
+
+.products{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:12px;
+
+margin-top:15px;
+
+}
+
+.product{
+
+background:white;
+
+border:none;
+
+padding:15px;
+
+border-radius:15px;
+
+cursor:pointer;
+
+transition:.25s;
+
+font-size:14px;
+
+font-weight:bold;
+
+color:#222;
+
+box-shadow:0 5px 12px rgba(0,0,0,.2);
+
+}
+
+.product:hover{
+
+background:#ff77b7;
+
+color:white;
+
+transform:scale(1.04);
+
+}
+
+/* RIGHT PANEL */
+
+.right{
+
+padding:25px;
+
+overflow:auto;
+
+}
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.header h2{
+
+font-size:28px;
+
+color:#ff3c93;
+
+}
+
+.badge{
+
+background:#ff3c93;
+
+color:white;
+
+padding:10px 18px;
+
+border-radius:30px;
+
+font-weight:bold;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+background:white;
+
+border-radius:15px;
+
+overflow:hidden;
+
+box-shadow:0 10px 20px rgba(0,0,0,.1);
+
+}
+
+thead{
+
+background:#ff77b7;
+
+color:white;
+
+}
+
+th{
+
+padding:15px;
+
+}
+
+td{
+
+padding:14px;
+
+text-align:center;
+
+border-bottom:1px solid #eee;
+
+}
+
+.qtyBtn{
+
+padding:4px 10px;
+
+border:none;
+
+background:#ff77b7;
+
+color:white;
+
+border-radius:5px;
+
+cursor:pointer;
+
+margin:0 2px;
+
+}
+
+.remove{
+
+background:#ff3b3b;
+
+color:white;
+
+padding:7px 12px;
+
+border:none;
+
+border-radius:7px;
+
+cursor:pointer;
+
+}
+
+.summary{
+
+margin-top:25px;
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:15px;
+
+}
+
+.card{
+
+background:white;
+
+padding:20px;
+
+border-radius:15px;
+
+box-shadow:0 10px 20px rgba(0,0,0,.1);
+
+}
+
+.card h3{
+
+color:#666;
+
+font-size:15px;
+
+}
+
+.card h1{
+
+margin-top:10px;
+
+color:#ff3c93;
+
+}
+
+.payment{
+
+margin-top:25px;
+
+display:grid;
+
+grid-template-columns:2fr 1fr 1fr;
+
+gap:15px;
+
+}
+
+.payment input{
+
+padding:15px;
+
+font-size:18px;
+
+border:none;
+
+border-radius:12px;
+
+outline:none;
+
+background:white;
+
+box-shadow:0 5px 12px rgba(0,0,0,.1);
+
+}
+
+.payment button{
+
+border:none;
+
+border-radius:12px;
+
+font-size:17px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.checkout{
+
+background:#ff3c93;
+
+color:white;
+
+}
+
+.checkout:hover{
+
+background:#ff1680;
+
+}
+
+.new{
+
+background:#222;
+
+color:white;
+
+}
+
+.new:hover{
+
+background:#444;
+
+}
+
+.receipt{
+
+margin-top:25px;
+
+background:white;
+
+padding:20px;
+
+border-radius:15px;
+
+display:none;
+
+box-shadow:0 8px 18px rgba(0,0,0,.15);
+
+}
+
+.receipt h2{
+
+text-align:center;
+
+color:#ff3c93;
+
+margin-bottom:15px;
+
+}
+
+.receipt hr{
+
+margin:10px 0;
+
+border:none;
+
+border-top:1px dashed #999;
+
+}
+
+.receipt p{
+margin:8px 0;
+font-size:15px;
+color:#333;
+}
+
+.receipt table{
+width:100%;
+margin-top:15px;
+box-shadow:none;
+border:1px solid #ddd;
+}
+
+.receipt th{
+background:#ff77b7;
+padding:10px;
+font-size:14px;
+}
+
+.receipt td{
+padding:10px;
+font-size:14px;
+}
+
+.receipt button{
+margin-top:20px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:#ff3c93;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.receipt button:hover{
+background:#ff1680;
+}
+
+.sales{
+margin-top:25px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+.salesCard{
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 8px 18px rgba(0,0,0,.1);
+text-align:center;
+}
+
+.salesCard h4{
+color:#666;
+margin-bottom:10px;
+}
+
+.salesCard h2{
+color:#ff3c93;
+}
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#ff77b7;
+border-radius:20px;
+}
+
+@media(max-width:900px){
+
+body{
+overflow:auto;
+}
+
+.container{
+grid-template-columns:1fr;
+height:auto;
+}
+
+.left{
+height:auto;
+}
+
+.products{
+grid-template-columns:repeat(2,1fr);
+}
+
+.summary,
+.sales,
+.payment{
+grid-template-columns:1fr;
+}
+
+.header{
+flex-direction:column;
+gap:15px;
+}
+
+.logo img{
+width:90px;
+height:90px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="left">
+
+<div class="logo">
+
+<!-- Replace "logo.png" with your logo -->
+<img src="/Messenger_creation_31BA52E6-38AF-44B9-8554-F852AAC5456A.png" alt="Charm Corner Logo">
+
+<h1>CHARM CORNER</h1>
+
+<p>Your Everyday Essentials ✨</p>
+
+</div>
+
+<div class="search">
+
+<input
+type="text"
+id="search"
+placeholder="Search products...">
+
+</div>
+
+<div class="category">
+
+🪞 MIRROR KEYCHAINS
+
+</div>
+
+<div class="products">
+
+<button class="product" data-name="Mirror Keychain" data-price="35">
+
+🪞 Mirror Keychain
+<br>
+₱35
+
+</button>
+
+<button class="product" data-name="Mirror Keychain" data-price="30">
+
+🪞 Mirror Keychain
+<br>
+₱30
+
+</button>
+
+</div>
+
+<div class="category">
+
+📌 BUTTON PINS
+
+</div>
+
+<div class="products">
+
+<button class="product" data-name="Button Pin" data-price="25">
+
+📌 Pin
+<br>
+₱25
+
+</button>
+
+<button class="product" data-name="Button Pin" data-price="15">
+
+📌 Pin
+<br>
+₱15
+
+</button>
+
+<button class="product" data-name="Button Pin" data-price="5">
+
+📌 Pin
+<br>
+₱5
+
+</button>
+
+</div>
+
+<div class="category">
+
+📱 GCASH SERVICES
+
+</div>
+
+<div class="products">
+
+<button class="product" data-name="Mobile Load" data-price="0">
+
+📱 Mobile Load
+
+</button>
+
+<button class="product" data-name="GCash Cash In" data-price="0">
+
+💳 Cash In
+
+</button>
+
+<button class="product" data-name="GCash Cash Out" data-price="0">
+
+💵 Cash Out
+
+</button>
+
+</div>
+
+</div>
+
+<div class="right">
+
+<div class="header">
+
+<h2>Point of Sale</h2>
+
+<div class="badge">
+
+Transaction #
+<span id="transNo">
+
+0001
+
+</span>
+
+</div>
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Item</th>
+
+<th>Qty</th>
+
+<th>Price</th>
+
+<th>Total</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody id="cart">
+
+</tbody>
+
+</table>
+
+<div class="summary">
+
+<div class="card">
+<h3>Subtotal</h3>
+<h1 id="subtotal">₱0.00</h1>
+</div>
+
+<div class="card">
+<h3>Items</h3>
+<h1 id="items">0</h1>
+</div>
+
+<div class="card">
+<h3>Total</h3>
+<h1 id="total">₱0.00</h1>
+</div>
+
+</div>
+
+<div class="payment">
+
+<input
+type="number"
+id="payment"
+placeholder="Enter customer payment">
+
+<button
+class="checkout"
+id="checkout">
+
+💳 Checkout
+
+</button>
+
+<button
+class="new"
+id="newSale">
+
+🛒 New Sale
+
+</button>
+
+</div>
+
+<div style="margin-top:20px;">
+
+<h2 style="color:#ff3c93;">
+
+Change:
+<span id="change">
+
+₱0.00
+
+</span>
+
+</h2>
+
+</div>
+
+<div class="sales">
+
+<div class="salesCard">
+
+<h4>Today's Sales</h4>
+
+<h2 id="todaySales">
+
+₱0.00
+
+</h2>
+
+</div>
+
+<div class="salesCard">
+
+<h4>Total Transactions</h4>
+
+<h2 id="transactions">
+
+0
+
+</h2>
+
+</div>
+
+<div class="salesCard">
+
+<h4>Items Sold</h4>
+
+<h2 id="sold">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+<div
+class="receipt"
+id="receipt">
+
+<h2>
+
+CHARM CORNER
+
+</h2>
+
+<p>
+
+Your Everyday Essentials
+
+</p>
+
+<hr>
+
+<p>
+
+Receipt No:
+<span id="receiptNo">
+
+</span>
+
+</p>
+
+<p>
+
+Date:
+<span id="receiptDate">
+
+</span>
+
+</p>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Item</th>
+
+<th>Qty</th>
+
+<th>Total</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="receiptItems">
+
+</tbody>
+
+</table>
+
+<hr>
+
+<p>
+
+TOTAL:
+<strong id="receiptTotal">
+
+₱0.00
+
+</strong>
+
+</p>
+
+<p>
+
+PAYMENT:
+<strong id="receiptPayment">
+
+₱0.00
+
+</strong>
+
+</p>
+
+<p>
+
+CHANGE:
+<strong id="receiptChange">
+
+₱0.00
+
+</strong>
+
+</p>
+
+<p style="text-align:center;margin-top:20px;">
+
+✨ Thank you for supporting
+<strong>Charm Corner!</strong>
+
+</p>
+
+<button onclick="window.print()">
+
+🖨 Print Receipt
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let cart=[];
+
+let transaction=1;
+
+let totalSales=0;
+
+let totalTransactions=0;
+
+let totalItemsSold=0;
+
+const cartTable=document.getElementById("cart");
+
+const subtotal=document.getElementById("subtotal");
+
+const total=document.getElementById("total");
+
+const items=document.getElementById("items");
+
+const payment=document.getElementById("payment");
+
+const change=document.getElementById("change");
+
+const receipt=document.getElementById("receipt");
+
+const search=document.getElementById("search");
+
+function updateCart(){
+
+cartTable.innerHTML="";
+
+let subtotalValue=0;
+let itemCount=0;
+
+cart.forEach((item,index)=>{
+
+let row=document.createElement("tr");
+
+row.innerHTML=`
+
+<td>${item.name}</td>
+
+<td>
+
+<button class="qtyBtn" onclick="changeQty(${index},-1)">-</button>
+
+${item.qty}
+
+<button class="qtyBtn" onclick="changeQty(${index},1)">+</button>
+
+</td>
+
+<td>₱${item.price.toFixed(2)}</td>
+
+<td>₱${(item.price*item.qty).toFixed(2)}</td>
+
+<td>
+
+<button class="remove"
+
+onclick="removeItem(${index})">
+
+<i class="fa-solid fa-trash"></i>
+
+</button>
+
+</td>
+
+`;
+
+cartTable.appendChild(row);
+
+subtotalValue+=item.price*item.qty;
+
+itemCount+=item.qty;
+
+});
+
+subtotal.innerHTML="₱"+subtotalValue.toFixed(2);
+total.innerHTML="₱"+subtotalValue.toFixed(2);
+items.innerHTML=itemCount;
+
+}
+
+document.querySelectorAll(".product").forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+let name=btn.dataset.name;
+let price=parseFloat(btn.dataset.price);
+
+if(price==0){
+
+let amount=parseFloat(
+
+prompt("Enter Amount")
+
+);
+
+if(isNaN(amount)||amount<=0)return;
+
+price=amount;
+
+}
+
+let existing=cart.find(x=>x.name==name&&x.price==price);
+
+if(existing){
+
+existing.qty++;
+
+}else{
+
+cart.push({
+
+name:name,
+
+price:price,
+
+qty:1
+
+});
+
+}
+
+updateCart();
+
+});
+
+});
+
+function changeQty(index,value){
+
+cart[index].qty+=value;
+
+if(cart[index].qty<=0){
+
+cart.splice(index,1);
+
+}
+
+updateCart();
+
+}
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+updateCart();
+
+}
+
+search.addEventListener("keyup",()=>{
+
+let keyword=search.value.toLowerCase();
+
+document.querySelectorAll(".product").forEach(btn=>{
+
+btn.style.display=
+
+btn.innerText.toLowerCase().includes(keyword)
+
+?
+
+"block"
+
+:
+
+"none";
+
+});
+
+});
+
+document.getElementById("newSale").onclick=function(){
+
+cart=[];
+
+payment.value="";
+
+change.innerHTML="₱0.00";
+
+receipt.style.display="none";
+
+updateCart();
+
+};
+
+document.getElementById("checkout").onclick=function(){
+
+if(cart.length==0){
+
+alert("Cart is empty!");
+
+return;
+
+}
+
+let subtotalValue=cart.reduce((sum,item)=>sum+(item.price*item.qty),0);
+
+let paymentValue=parseFloat(payment.value);
+
+if(isNaN(paymentValue)){
+
+alert("Please enter customer payment.");
+
+return;
+
+}
+
+if(paymentValue<subtotalValue){
+
+alert("Insufficient payment.");
+
+return;
+
+}
+
+let changeValue=paymentValue-subtotalValue;
+
+change.innerHTML="₱"+changeValue.toFixed(2);
+
+totalSales+=subtotalValue;
+
+totalTransactions++;
+
+totalItemsSold+=cart.reduce((sum,item)=>sum+item.qty,0);
+
+document.getElementById("todaySales").innerHTML="₱"+totalSales.toFixed(2);
+
+document.getElementById("transactions").innerHTML=totalTransactions;
+
+document.getElementById("sold").innerHTML=totalItemsSold;
+
+document.getElementById("receiptNo").innerHTML=
+
+String(transaction).padStart(4,"0");
+
+document.getElementById("receiptDate").innerHTML=
+
+new Date().toLocaleString();
+
+document.getElementById("receiptTotal").innerHTML=
+
+"₱"+subtotalValue.toFixed(2);
+
+document.getElementById("receiptPayment").innerHTML=
+
+"₱"+paymentValue.toFixed(2);
+
+document.getElementById("receiptChange").innerHTML=
+
+"₱"+changeValue.toFixed(2);
+
+let receiptItems=document.getElementById("receiptItems");
+
+receiptItems.innerHTML="";
+
+cart.forEach(item=>{
+
+receiptItems.innerHTML+=`
+
+<tr>
+
+<td>${item.name}</td>
+
+<td>${item.qty}</td>
+
+<td>₱${(item.price*item.qty).toFixed(2)}</td>
+
+</tr>
+
+`;
+
+});
+
+receipt.style.display="block";
+
+localStorage.setItem("cc_sales",totalSales);
+
+localStorage.setItem("cc_transactions",totalTransactions);
+
+localStorage.setItem("cc_items",totalItemsSold);
+
+transaction++;
+
+document.getElementById("transNo").innerHTML=
+
+String(transaction).padStart(4,"0");
+
+};
+
+window.onload=function(){
+
+totalSales=parseFloat(localStorage.getItem("cc_sales"))||0;
+
+totalTransactions=parseInt(localStorage.getItem("cc_transactions"))||0;
+
+totalItemsSold=parseInt(localStorage.getItem("cc_items"))||0;
+
+document.getElementById("todaySales").innerHTML="₱"+totalSales.toFixed(2);
+
+document.getElementById("transactions").innerHTML=totalTransactions;
+
+document.getElementById("sold").innerHTML=totalItemsSold;
+
+updateCart();
+
+};
+
+/* ===========================
+   PRINT RECEIPT
+=========================== */
+
+const printStyle=document.createElement("style");
+
+printStyle.innerHTML=`
+@media print{
+
+body *{
+visibility:hidden;
+}
+
+#receipt,
+#receipt *{
+visibility:visible;
+}
+
+#receipt{
+position:absolute;
+left:0;
+top:0;
+width:100%;
+background:white;
+color:black;
+padding:20px;
+box-shadow:none;
+}
+
+#receipt button{
+display:none;
+}
+
+}
+`;
+
+document.head.appendChild(printStyle);
+
+
+/* ===========================
+   SUCCESS MESSAGE
+=========================== */
+
+function successMessage(){
+
+const msg=document.createElement("div");
+
+msg.innerHTML="✅ Payment Successful";
+
+msg.style.position="fixed";
+msg.style.top="20px";
+msg.style.right="20px";
+msg.style.padding="15px 25px";
+msg.style.background="#ff3c93";
+msg.style.color="white";
+msg.style.fontWeight="bold";
+msg.style.borderRadius="12px";
+msg.style.boxShadow="0 10px 20px rgba(0,0,0,.3)";
+msg.style.zIndex="9999";
+
+document.body.appendChild(msg);
+
+setTimeout(()=>{
+
+msg.remove();
+
+},2000);
+
+}
+
+
+/* ===========================
+   ENTER = CHECKOUT
+=========================== */
+
+payment.addEventListener("keypress",function(e){
+
+if(e.key==="Enter"){
+
+document.getElementById("checkout").click();
+
+}
+
+});
+
+
+/* ===========================
+   AFTER CHECKOUT
+=========================== */
+
+document.getElementById("checkout").addEventListener("click",()=>{
+
+if(cart.length>0){
+
+successMessage();
+
+}
+
+});
+
+
+/* ===========================
+   CLEAR TODAY'S SALES
+=========================== */
+
+function resetSales(){
+
+if(confirm("Reset today's sales?")){
+
+localStorage.removeItem("cc_sales");
+localStorage.removeItem("cc_transactions");
+localStorage.removeItem("cc_items");
+
+location.reload();
+
+}
+
+}
+
+
+/* ===========================
+   DOUBLE CLICK LOGO TO RESET
+=========================== */
+
+const logo=document.querySelector(".logo");
+
+logo.addEventListener("dblclick",resetSales);
+
+
+/* ===========================
+   FOOTER
+=========================== */
+
+console.log("%cCHARM CORNER POS SYSTEM",
+"color:#ff3c93;font-size:22px;font-weight:bold;");
+
+console.log("Developed with ❤️");
+
+
+</script>
+
+</body>
+</html>
